@@ -1,5 +1,8 @@
+.page-header{
+  margin: 40px auto 60px auto;
+}
 .results {
-  min-height: 500px;
+  min-height: 400px;
 }
 
 .player-two-buttons {
