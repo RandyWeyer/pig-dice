@@ -2,34 +2,24 @@
 var playerOneScore = 0;
 var playerTwoScore = 0;
 var roundTotal = 0;
+var diceType = {};
+var numberOfDice = 0;
+var numberOfSides = 0;
+var goalValue = 0;
+var numberOfPlayers = 2;
 
-// function getDiceOutput() {
-//   var diceResult = Math.floor(Math.random() * (numberOfSides * numberOfDice) + (numberOfDice);
-//   return diceResult;
-// }
-// function collectScoresForTurn(currentScore, roundTotal) {
-//   roundTotal += currentScore;
-//   return roundTotal;
-// }
-
-function player(roundScore,totalScore) {
-  this.roundTotal = roundScore;
-  this.playerScore = totalScore;
-}
-
-player.prototype.collectScoresForTurn = function(diceRes) {
-  this.roundTotal += diceRes;
-  return this.roundTotal;
-}
-
-function Dice(numberOfSides,result) {
+function Dice(numberOfSides) {
   this.numberOfSides = numberOfSides;
-  this.diceResult = result;
 }
 
 Dice.prototype.getDiceOutput = function(numberOfDice) {
-  var diceOutput= Math.floor(Math.random() * (this.numberOfSides * numberOfDice) + (numberOfDice));
+  var diceOutput= Math.floor((Math.random() * (this.numberOfSides * numberOfDice)) + (numberOfDice));
   return diceOutput;
+}
+
+function collectScoresForTurn(currentScore, roundTotal) {
+  roundTotal += currentScore;
+  return roundTotal;
 }
 
 function changeTurnsPlayerOne() {
@@ -55,25 +45,32 @@ $(document).ready(function(){
 
   $("#rule-setup").submit(function(event) {
     event.preventDefault();
-    var numberOfDice = parseInt($("#number-of-dice").val());
-    var numberOfSides = parseInt($("#number-of-sides").val());
-    var goalValue = parseInt($("#goal-value").val());
+    numberOfDice = parseInt($("#number-of-dice").val());
+    numberOfSides = parseInt($("#number-of-sides").val());
+    goalValue = parseInt($("#goal-value").val());
+    numberOfPlayers = document.getElementById("number-of-players").value;
+
+    console.log(numberOfPlayers);
+
+    diceType = new Dice(numberOfSides);
+    console.log(diceType);
+    $("#rule-setup").hide();
+    $(".game-board").show();
   });
 
 //player one
   $("#player-one-roll").click(function(event) {
     event.preventDefault();
 
-    var rollOutput = getDiceOutput();
+    var rollOutput = diceType.getDiceOutput(numberOfDice);
     console.log(rollOutput);
 
-    if (rollOutput===1) {
+    if (rollOutput%numberOfSides===0) {
       roundTotal = 0;
       changeTurnsPlayerOne();
       console.log(roundTotal);
     } else {
     roundTotal = collectScoresForTurn(rollOutput,roundTotal);
-    console.log(roundTotal);
     $(".player-one-round-total").text(roundTotal);
     }
 
@@ -82,17 +79,18 @@ $(document).ready(function(){
   $("#player-one-hold").click(function(event)  {
     event.preventDefault();
     changeTurnsPlayerOne();
-    if (playerOneScore>=20){
+    if (playerOneScore>=goalValue){
       alert("player One win!!!");
     }
-    console.log(playerOneScore);
   });
 //player two
   $("#player-two-roll").click(function(event) {
     event.preventDefault();
-    var rollOutput = getDiceOutput();
+
+    var rollOutput = diceType.getDiceOutput(numberOfDice);
     console.log(rollOutput);
-    if (rollOutput===1) {
+
+    if (rollOutput%numberOfSides===0) {
       roundTotal = 0;
       changeTurnsPlayerTwo();
     } else {
@@ -105,7 +103,7 @@ $(document).ready(function(){
   $("#player-two-hold").click(function(event)  {
     event.preventDefault();
     changeTurnsPlayerTwo();
-    if (playerTwoScore>=20){
+    if (playerTwoScore>=goalValue){
       alert("player Two win!!!");
     }
   });

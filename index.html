@@ -16,6 +16,14 @@
         <form id="rule-setup">
 
         <div class="col-md-12 rule-set">
+          <p>Number of Players:</p>
+          <select id="number-of-players">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+
+        </div>
+        <div class="col-md-12 rule-set">
           <p>Number of dice:</p>
           <input id="number-of-dice" type="number">
         </div>
@@ -34,34 +42,40 @@
 
       </form>
 
-        <div class="game-board">
-        <div class="col-md-6 card bg-light">
+    </div>
 
-            <div class="results" id="resultOne">
-              <h3>Total: <div class="player-one-number"></div></h3>
-              <div class="player-one-buttons">
-                <h3>Round: <div class="player-one-round-total"></div></h3>
+    <div class="row">
+        <div class="game-board col-md-12">
+          <div class="row">
+            <div class="col-md-6 card bg-light">
 
-            <button id="player-one-roll" class="btn btn-primary" type="button">Roll!</button>
-            <button id="player-one-hold" class="btn btn-success" type="button">Hold!</button>
-          </div>
-        </div>
-        </div>
+              <div class="results" id="resultOne">
+                <h3>Total: <div class="player-one-number"></div></h3>
+                <div class="player-one-buttons">
+                  <h3>Round: <div class="player-one-round-total"></div></h3>
 
-
-        <div class="col-md-6 card bg-light">
-          <div class="results" id="resultTwo">
-            <h3>Total: <div class="player-two-number"></div></h3>
-            <div class="player-two-buttons">
-              <h3>Round: <div class="player-two-round-total"></div></h3>
-
-              <button id="player-two-roll" class="btn btn-primary" type="submit">Roll!</button>
-              <button id="player-two-hold" class="btn btn-success" type="submit">Hold!</button>
+                  <button id="player-one-roll" class="btn btn-primary" type="button">Roll!</button>
+                  <button id="player-one-hold" class="btn btn-success" type="button">Hold!</button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-      </div>
+
+            <div class="col-md-6 card bg-light">
+              <div class="results" id="resultTwo">
+                <h3>Total: <div class="player-two-number"></div></h3>
+                <div class="player-two-buttons">
+                  <h3>Round: <div class="player-two-round-total"></div></h3>
+
+                  <button id="player-two-roll" class="btn btn-primary" type="submit">Roll!</button>
+                  <button id="player-two-hold" class="btn btn-success" type="submit">Hold!</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <!-- End of Row -->
+        </div>
         <!-- End of Game Board -->
       </div>
         <!-- End of Row -->
