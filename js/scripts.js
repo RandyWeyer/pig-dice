@@ -3,14 +3,33 @@ var playerOneScore = 0;
 var playerTwoScore = 0;
 var roundTotal = 0;
 
-function getDiceOutput() {
-  var diceResult = Math.floor(Math.random() * 6) + 1;
-  return diceResult;
+// function getDiceOutput() {
+//   var diceResult = Math.floor(Math.random() * (numberOfSides * numberOfDice) + (numberOfDice);
+//   return diceResult;
+// }
+// function collectScoresForTurn(currentScore, roundTotal) {
+//   roundTotal += currentScore;
+//   return roundTotal;
+// }
+
+function player(roundScore,totalScore) {
+  this.roundTotal = roundScore;
+  this.playerScore = totalScore;
 }
 
-function collectScoresForTurn(currentScore, roundTotal) {
-  roundTotal += currentScore;
-  return roundTotal;
+player.prototype.collectScoresForTurn = function(diceRes) {
+  this.roundTotal += diceRes;
+  return this.roundTotal;
+}
+
+function Dice(numberOfSides,result) {
+  this.numberOfSides = numberOfSides;
+  this.diceResult = result;
+}
+
+Dice.prototype.getDiceOutput = function(numberOfDice) {
+  var diceOutput= Math.floor(Math.random() * (this.numberOfSides * numberOfDice) + (numberOfDice));
+  return diceOutput;
 }
 
 function changeTurnsPlayerOne() {
@@ -33,9 +52,18 @@ function changeTurnsPlayerTwo() {
 
 // Front End Logic
 $(document).ready(function(){
+
+  $("#rule-setup").submit(function(event) {
+    event.preventDefault();
+    var numberOfDice = parseInt($("#number-of-dice").val());
+    var numberOfSides = parseInt($("#number-of-sides").val());
+    var goalValue = parseInt($("#goal-value").val());
+  });
+
 //player one
   $("#player-one-roll").click(function(event) {
     event.preventDefault();
+
     var rollOutput = getDiceOutput();
     console.log(rollOutput);
 

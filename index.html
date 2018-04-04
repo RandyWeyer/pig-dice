@@ -12,12 +12,30 @@
     <div class="container">
       <div class="row">
         <h1 class="col-md-12">Pig Dice</h1>
-      </div>
 
+        <form id="rule-setup">
 
-      <div class="row">
+        <div class="col-md-12 rule-set">
+          <p>Number of dice:</p>
+          <input id="number-of-dice" type="number">
+        </div>
+
+        <div class="col-md-12 rule-set">
+          <p>Number of sides on dice:</p>
+          <input id="number-of-sides" type="number">
+        </div>
+
+        <div class="col-md-12 rule-set">
+          <p>Goal value:</p>
+          <input id="goal-value" type="number">
+        </div>
+
+        <button type="submit" class="btn start-game-button">Start Game</button>
+
+      </form>
+
+        <div class="game-board">
         <div class="col-md-6 card bg-light">
-          <form id="player-one">
 
             <div class="results" id="resultOne">
               <h3>Total: <div class="player-one-number"></div></h3>
@@ -28,24 +46,23 @@
             <button id="player-one-hold" class="btn btn-success" type="button">Hold!</button>
           </div>
         </div>
-          </form>
         </div>
 
 
         <div class="col-md-6 card bg-light">
-          <form id="player-two">
-            <div class="results" id="resultTwo">
-              <h3>Total: <div class="player-two-number"></div></h3>
-              <div class="player-two-buttons">
-                <h3>Round: <div class="player-two-round-total"></div></h3>
+          <div class="results" id="resultTwo">
+            <h3>Total: <div class="player-two-number"></div></h3>
+            <div class="player-two-buttons">
+              <h3>Round: <div class="player-two-round-total"></div></h3>
 
-                <button id="player-two-roll" class="btn btn-primary" type="submit">Roll!</button>
-                <button id="player-two-hold" class="btn btn-success" type="submit">Hold!</button>
-              </div>
-              </div>
-
-          </form>
+              <button id="player-two-roll" class="btn btn-primary" type="submit">Roll!</button>
+              <button id="player-two-hold" class="btn btn-success" type="submit">Hold!</button>
+            </div>
+          </div>
         </div>
+
+      </div>
+        <!-- End of Game Board -->
       </div>
         <!-- End of Row -->
     </div>
