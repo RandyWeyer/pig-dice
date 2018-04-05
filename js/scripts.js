@@ -27,7 +27,7 @@ function changeTurnsPlayerOne() {
     roundTotal = 0;
   $(".player-one-buttons").toggle();
   // if (numberOfPlayers >= 2){
-  $(".player-two-buttons").toggle();
+    $(".player-two-buttons").toggle();
   // }
   $(".player-one-number").text(playerOneScore);
   $(".player-one-round-total").text(roundTotal);
@@ -38,7 +38,7 @@ function changeTurnsPlayerTwo() {
     roundTotal = 0;
   $(".player-one-buttons").toggle();
   // if (numberOfPlayers >= 2){
-  $(".player-two-buttons").toggle();
+    $(".player-two-buttons").toggle();
   // }
   $(".player-two-number").text(playerTwoScore);
   $(".player-two-round-total").text(roundTotal);
@@ -60,32 +60,101 @@ $(document).ready(function(){
     $(".game-board").show();
   });
 
-  //for two players
-  if (numberOfPlayers===2) { //we need to put if condition within listener
     //player one
     $("#player-one-roll").click(function(event) {
       event.preventDefault();
 
+      if (numberOfPlayers==1) { //against computer. if condition is within 'roll click' listener
+
       var rollOutput = diceType.getDiceOutput(numberOfDice);
       console.log(rollOutput);
 
-      if (rollOutput%6===0) {
+      if ((rollOutput-1)%6===0) {
         roundTotal = 0;
         changeTurnsPlayerOne();
         console.log(roundTotal);
+
+        var rollOutput = diceType.getDiceOutput(numberOfDice);
+        console.log("1st roll: " + rollOutput);
+
+        if ((rollOutput-1)%6===0) {
+          roundTotal = 0;
+        } else {
+          roundTotal = collectScoresForTurn(rollOutput,roundTotal);
+          $(".player-two-round-total").text(roundTotal);
+        }
+
+        rollOutput = diceType.getDiceOutput(numberOfDice);
+        console.log("2nd roll: " + rollOutput);
+
+        if ((rollOutput-1)%6===0) {
+          roundTotal = 0;
+        } else {
+          roundTotal = collectScoresForTurn(rollOutput,roundTotal);
+          $(".player-two-round-total").text(roundTotal);
+        }
+
+        changeTurnsPlayerTwo();
+        if (playerTwoScore>=goalValue){
+          alert("player Two win!!!");
+        }
       } else {
       roundTotal = collectScoresForTurn(rollOutput,roundTotal);
       $(".player-one-round-total").text(roundTotal);
       }
+    }  else { //against 2nd player
+        var rollOutput = diceType.getDiceOutput(numberOfDice);
+        console.log(rollOutput);
 
+        if ((rollOutput-1)%6===0) {
+          roundTotal = 0;
+          changeTurnsPlayerOne();
+          console.log(roundTotal);
+        } else {
+        roundTotal = collectScoresForTurn(rollOutput,roundTotal);
+        $(".player-one-round-total").text(roundTotal);
+        }
+    }
     });
 
 
     $("#player-one-hold").click(function(event)  {
       event.preventDefault();
-      changeTurnsPlayerOne();
+      if (numberOfPlayers==1) {//against computer. if condition is within 'roll click' listener
+              changeTurnsPlayerOne();
+            if (playerOneScore>=goalValue){
+              alert("player One win!!!");
+            }
+
+            var rollOutput = diceType.getDiceOutput(numberOfDice);
+            console.log("1st roll: " + rollOutput);
+
+            if ((rollOutput-1)%6===0) {
+              roundTotal = 0;
+            } else {
+              roundTotal = collectScoresForTurn(rollOutput,roundTotal);
+              $(".player-two-round-total").text(roundTotal);
+            }
+
+            rollOutput = diceType.getDiceOutput(numberOfDice);
+            console.log("2nd roll: " + rollOutput);
+
+            if ((rollOutput-1)%6===0) {
+              roundTotal = 0;
+            } else {
+              roundTotal = collectScoresForTurn(rollOutput,roundTotal);
+              $(".player-two-round-total").text(roundTotal);
+            }
+
+            changeTurnsPlayerTwo();
+            if (playerTwoScore>=goalValue){
+              alert("player Two win!!!");
+            }
+      }  else if (numberOfPlayers==2) {//against 2nd player
+        changeTurnsPlayerOne();
       if (playerOneScore>=goalValue){
         alert("player One win!!!");
+      }
       }
     });
 
@@ -96,7 +165,7 @@ $(document).ready(function(){
       var rollOutput = diceType.getDiceOutput(numberOfDice);
       console.log(rollOutput);
 
-      if (rollOutput%6===0) {
+      if ((rollOutput-1)%6===0) {
         roundTotal = 0;
         changeTurnsPlayerTwo();
       } else {
@@ -113,57 +182,5 @@ $(document).ready(function(){
         alert("player Two win!!!");
       }
     });
-  //for one player
-  } else if (numberOfPlayers===1) {
-    $("#player-one-roll").click(function(event) {
-      event.preventDefault();
-
-      var rollOutput = diceType.getDiceOutput(numberOfDice);
-      console.log(rollOutput);
-
-      if (rollOutput%6===0) {
-        roundTotal = 0;
-        changeTurnsPlayerOne();
-        console.log(roundTotal);
-      } else {
-      roundTotal = collectScoresForTurn(rollOutput,roundTotal);
-      $(".player-one-round-total").text(roundTotal);
-      }
-
-    });
-
-    $("#player-one-hold").click(function(event)  {
-      event.preventDefault();
-      changeTurnsPlayerOne();
-      if (playerOneScore>=goalValue){
-        alert("player One win!!!");
-      }
-      var rollOutput = diceType.getDiceOutput(numberOfDice);
-      console.log("1st roll: " + rollOutput);
-
-      if (rollOutput%6===0) {
-        roundTotal = 0;
-      } else {
-        roundTotal = collectScoresForTurn(rollOutput,roundTotal);
-        $(".player-two-round-total").text(roundTotal);
-      }
-
-      rollOutput = diceType.getDiceOutput(numberOfDice);
-      console.log("2nd roll: " + rollOutput);
-
-      if (rollOutput%6===0) {
-        roundTotal = 0;
-      } else {
-        roundTotal = collectScoresForTurn(rollOutput,roundTotal);
-        $(".player-two-round-total").text(roundTotal);
-      }
-
-      changeTurnsPlayerTwo();
-      if (playerTwoScore>=goalValue){
-        alert("player Two win!!!");
-      }
-
-    });
-  }
 
 });
